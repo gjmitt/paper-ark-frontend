@@ -1,13 +1,9 @@
 import React from 'react'
 
-function BorrowButton() {
-
-  function handleBorrowClick(e) {
-    console.log("Borrow button click")
-  }
+function BorrowButton({ onLoan, handleLoan }) {
 
   return (
-    <button onClick={handleBorrowClick}>Borrow</button>
+    <button onClick={handleLoan}>{onLoan ? "Return" : "Borrow"}</button>
   )
 }
 

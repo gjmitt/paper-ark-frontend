@@ -3,12 +3,12 @@ import PaperList from "./PaperList"
 import PaperListControls from './PaperListControls'
 import NewPaperForm from './NewPaperForm'
 
-function PaperListContainer({ items }) {
+function PaperListContainer({ ark }) {
   return (
     <>
       <PaperListControls />
       <NewPaperForm />
-      <PaperList items={items} />
+      <PaperList ark={ark} />
     </>
   )
 }

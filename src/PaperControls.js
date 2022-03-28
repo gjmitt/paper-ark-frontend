@@ -1,14 +1,9 @@
 import React from 'react'
-import MoreButton from './MoreButton';
-import BorrowButton from './BorrowButton';
-import PagesButton from './PagesButton';
 
-function PaperControls() {
+function PaperControls({ children }) {
   return (
     <div>Paper Controls
-      <MoreButton />
-      <BorrowButton />
-      <PagesButton />
+      {children}
     </div>
   )
 }

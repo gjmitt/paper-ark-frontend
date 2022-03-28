@@ -9,11 +9,11 @@ function PaperListControls() {
   return (
     <div>
       <h2>Paper List Controls</h2>
-      <span><PaperSearchInput /></span>
-      <span><CategoryFilterSelect /></span>
-      <span><PaperSortSelect /></span>
-      <span><HasPagesCheckbox /></span>
-      <span><NewPaperButton /></span>
+      <PaperSearchInput />
+      <CategoryFilterSelect />
+      <PaperSortSelect />
+      <HasPagesCheckbox />
+      <NewPaperButton />
     </div>
 
   )

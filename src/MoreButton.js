@@ -1,13 +1,11 @@
 import React from 'react'
 
-function MoreButton() {
-
-  function handleMoreClick(e) {
-    console.log("More button click")
-  }
+function MoreButton({ showMore, setShowMore }) {
 
   return (
-    <button onClick={handleMoreClick}>More</button>
+    <button onClick={() => setShowMore(!showMore)} >
+      {showMore ? "Less" : "More"}
+    </button>
   )
 }
 

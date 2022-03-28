@@ -19,13 +19,13 @@ function NavBar() {
         <button onClick={() => handleNavClick('about')}>About</button>
       </span>
       <span>
-        <button onClick={() => handleMaterialClick('Books')}>Books</button>
+        <button onClick={() => handleMaterialClick('Book')}>Books</button>
       </span>
       <span>
-        <button onClick={() => handleMaterialClick('Mapes')}>Maps</button>
+        <button onClick={() => handleMaterialClick('Map')}>Maps</button>
       </span>
       <span>
-        <button onClick={() => handleMaterialClick('Events')}>Events</button>
+        <button onClick={() => handleMaterialClick('Event')}>Events</button>
       </span>
       <span>
         <button onClick={() => handleNavClick('new')}>New</button>

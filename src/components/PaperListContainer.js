@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PaperList from "./PaperList"
 import PaperListControls from './PaperListControls'
-import CategoryFilterSelect from './CategoryFilterSelect';
+import CategorySelect from './CategorySelect';
 import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
 import PaperSortSelect from './PaperSortSelect';
@@ -11,7 +11,7 @@ function PaperListContainer({ ark, material }) {
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [sortKey, setSortKey] = useState("");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
-  const [categoryOptions, setCategoryOptions] = useState(["Any", "Hardware", "Software"]);
+  const [categoryOptions, setCategoryOptions] = useState(getCategorysForDisplayList());
 
   function getDisplayList() {
     return ark
@@ -22,7 +22,10 @@ function PaperListContainer({ ark, material }) {
   }
 
   function getCategorysForDisplayList() {
-    return ["Any", "Hardware", "Software"]
+    const categorys = ark.map((paper) => paper.category);
+    const uniqueCategorys = Array.from(new Set(categorys))
+    return ["Any", ...uniqueCategorys];
+    //    return ["Any", "Hardware", "Software"]
   }
 
   function isSearchMatch(item, text) {
@@ -34,7 +37,7 @@ function PaperListContainer({ ark, material }) {
     <>
       <PaperListControls>
         <PaperSearchInput text={searchText} setText={setSearchText} />
-        <CategoryFilterSelect
+        <CategorySelect
           category={categoryFilter}
           onCategoryChange={setCategoryFilter}
           categoryOptions={categoryOptions}

@@ -1,6 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import CategorySelect from "./CategorySelect";
 
 function NewPaperForm({ onNewPaper }) {
+
+  const categorys = [
+    "Literature",
+    "History",
+    "Hardware",
+    "Software",
+    "Land",
+    "Road",
+    "Tourist",
+    "Greek Latin",
+    "Opera",
+    "Theatre",
+    "Music"
+  ]
 
   const blankPaper = {
     material: "Book",
@@ -36,12 +51,10 @@ function NewPaperForm({ onNewPaper }) {
   }
 
   function handleChange(event) {
-    console.log(formData)
     const name = event.target.name;
     const value = event.target.type === "checkbox"
       ? event.target.checked
       : event.target.value;
-    console.log(name, value);
     setFormData({ ...formData, [name]: value })
   }
 
@@ -55,22 +68,7 @@ function NewPaperForm({ onNewPaper }) {
           <option value="Event">Event</option>
         </select>
       </label>
-      <label>
-        Category:
-        <select name="category" value={formData.category} onChange={handleChange} >
-          <option value="Literature">Literature</option>
-          <option value="History">History</option>
-          <option value="Hardware">Hardware</option>
-          <option value="Software">Software</option>
-          <option value="Land">Land</option>
-          <option value="Road">Road</option>
-          <option value="Tourist">Tourist</option>
-          <option value="Greek Latin">Greek Latin</option>
-          <option value="Opera">Opera</option>
-          <option value="Theatre">Theatre</option>
-          <option value="Music">Music</option>
-        </select>
-      </label>
+      <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categorys} />
       <label>
         Title:
         <input name="title" type="text" value={formData.title} onChange={handleChange} />

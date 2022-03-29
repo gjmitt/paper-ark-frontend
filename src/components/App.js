@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 
 function App() {
   const [ark, setArk] = useState([]);
+  const [selectedMaterial, setSelectedMaterial] = useState("");
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/paper/`)
@@ -15,8 +16,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <NavBar />
-      <PaperListContainer ark={ark} />
+      <NavBar
+        setSelectedMaterial={setSelectedMaterial}
+      />
+      {/* <PaperListContainer items={ark} /> */}
+      <PaperListContainer items={
+        ark.filter((item) => item.material === selectedMaterial)} />
     </div>
   );
 

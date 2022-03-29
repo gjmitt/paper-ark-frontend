@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function NavBar() {
+function NavBar({ setSelectedMaterial }) {
 
   function handleNavClick(route) {
     console.log("Nav Clicked route ", route)
   }
 
   function handleMaterialClick(material) {
-    console.log("Material click ", material)
+    setSelectedMaterial(material);
   }
 
   return (

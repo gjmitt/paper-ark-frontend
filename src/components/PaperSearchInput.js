@@ -1,17 +1,14 @@
 import React from 'react'
 
-function PaperSearchInput() {
-  function handleSearchInput(e) {
-    console.log(e.target.value)
-  }
+function PaperSearchInput({ text, setText }) {
 
   return (
     <div>Search:
       <input
         type="text"
         name="search"
-        value=""
-        onChange={handleSearchInput}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
       />
     </div>
   )

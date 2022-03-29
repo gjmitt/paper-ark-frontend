@@ -19,6 +19,7 @@ function NavBar({ setSelectedMaterial }) {
       <NavLink to="/paper/maps" exact >Maps</NavLink>
       <NavLink to="/paper/books" exact >Books</NavLink>
       <NavLink to="/paper/events" exact >Events</NavLink>
+      <NavLink to="/new" exact >New</NavLink>
 
     </div>
   )

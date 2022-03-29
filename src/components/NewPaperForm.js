@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 function NewPaperForm({ onNewPaper }) {
 
-  [formData, setFormData] = useState({
+  const blankPaper = {
     material: "Book",
     category: "Literature",
     imageCount: 0,
@@ -16,7 +16,8 @@ function NewPaperForm({ onNewPaper }) {
     venue: "",
     hasPages: false,
     onLoan: false
-  });
+  };
+  const [formData, setFormData] = useState(blankPaper);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,25 +26,30 @@ function NewPaperForm({ onNewPaper }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(itemData),
+      body: JSON.stringify(formData),
     })
       .then((r) => r.json())
-      .then((newPaper) => onNewPaper(newPaper));
+      .then((newPaper) => {
+        onNewPaper(newPaper);
+        setFormData(blankPaper);
+      });
   }
 
   function handleChange(event) {
+    console.log(formData)
     const name = event.target.name;
     const value = event.target.type === "checkbox"
       ? event.target.checked
       : event.target.value;
+    console.log(name, value);
     setFormData({ ...formData, [name]: value })
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit} >
       <label>
         Type:
-        <select value={formData.material} onChange={handleChange} >
+        <select name="material" value={formData.material} onChange={handleChange} >
           <option value="Book">Book</option>
           <option value="Map">Map</option>
           <option value="Event">Event</option>
@@ -51,7 +57,7 @@ function NewPaperForm({ onNewPaper }) {
       </label>
       <label>
         Category:
-        <select value={formData.category} onChange={handleChange} >
+        <select name="category" value={formData.category} onChange={handleChange} >
           <option value="Literature">Literature</option>
           <option value="History">History</option>
           <option value="Hardware">Hardware</option>
@@ -67,29 +73,29 @@ function NewPaperForm({ onNewPaper }) {
       </label>
       <label>
         Title:
-        <input type="text" value={formData.title} onChange={handleChange} />
+        <input name="title" type="text" value={formData.title} onChange={handleChange} />
       </label>
       <label>
         Author:
-        <input type="text" value={formData.author} onChange={handleChange} />
+        <input name="author" type="text" value={formData.author} onChange={handleChange} />
       </label>
       <label>
         Publisher:
-        <input type="text" value={formData.publisher} onChange={handleChange} />
+        <input name="publisher" type="text" value={formData.publisher} onChange={handleChange} />
       </label>
       <label>
         ISBN:
-        <input type="text" value={formData.isbn} onChange={handleChange} />
+        <input name="isbn" type="text" value={formData.isbn} onChange={handleChange} />
       </label>
       <label>
         Size:
-        <input type="text" value={formData.size} onChange={handleChange} />
+        <input name="size" type="text" value={formData.size} onChange={handleChange} />
       </label>
       <label>
         Venue:
-        <input type="text" value={formData.venue} onChange={handleChange} />
+        <input name="venue" type="text" value={formData.venue} onChange={handleChange} />
       </label>
-
+      <button>Submit</button>
     </form>
   )
 }

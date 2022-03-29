@@ -5,6 +5,7 @@ import Header from "./Header";
 import NavBar from "./NavBar";
 import About from "./About";
 import Home from "./Home";
+import NewPaperForm from "./NewPaperForm";
 
 function App() {
   const [ark, setArk] = useState([]);
@@ -14,6 +15,10 @@ function App() {
       .then((resp) => resp.json())
       .then((items) => setArk(items))
   }, [])
+
+  function handleNewPaper(newPaper) {
+    setArk([...ark, newPaper]);
+  }
 
   return (
     <div className="App">
@@ -34,6 +39,9 @@ function App() {
         </Route>
         <Route exact path="/paper/events">
           <PaperListContainer ark={ark} material="Event" />
+        </Route>
+        <Route exact path="/new">
+          <NewPaperForm onNewPaper={handleNewPaper} />
         </Route>
         <Route exact path="/">
           <Home />

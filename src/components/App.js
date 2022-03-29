@@ -20,6 +20,12 @@ function App() {
     setArk([...ark, newPaper]);
   }
 
+  function getCategorys(items) {
+    const categorys = items.map((paper) => paper.category);
+    const uniqueCategorys = Array.from(new Set(categorys))
+    return ["Any", ...uniqueCategorys];
+  }
+
   return (
     <div className="App">
       <Header />
@@ -29,26 +35,24 @@ function App() {
           <About />
         </Route>
         <Route exact path="/paper">
-          <PaperListContainer ark={ark} material="" />
+          <PaperListContainer ark={ark} material="" getCategorys={getCategorys} />
         </Route>
         <Route exact path="/paper/maps">
-          <PaperListContainer ark={ark} material="Map" />
+          <PaperListContainer ark={ark} material="Map" getCategorys={getCategorys} />
         </Route>
         <Route exact path="/paper/books">
-          <PaperListContainer ark={ark} material="Book" />
+          <PaperListContainer ark={ark} material="Book" getCategorys={getCategorys} />
         </Route>
         <Route exact path="/paper/events">
-          <PaperListContainer ark={ark} material="Event" />
+          <PaperListContainer ark={ark} material="Event" getCategorys={getCategorys} />
         </Route>
         <Route exact path="/new">
-          <NewPaperForm onNewPaper={handleNewPaper} />
+          <NewPaperForm onNewPaper={handleNewPaper} categorys={getCategorys(ark)} />
         </Route>
         <Route exact path="/">
           <Home />
         </Route>
       </Switch>
-      {/* <PaperListContainer items={
-        ark.filter((item) => item.material === selectedMaterial)} /> */}
     </div>
   );
 

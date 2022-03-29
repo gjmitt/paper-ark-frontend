@@ -6,31 +6,31 @@ import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
 import PaperSortSelect from './PaperSortSelect';
 
-function PaperListContainer({ ark, material }) {
+function PaperListContainer({ ark, material, getCategorys }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
-  const [sortKey, setSortKey] = useState("");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
-  const [categoryOptions, setCategoryOptions] = useState(getCategorysForDisplayList());
+  // const [sortKey, setSortKey] = useState("");
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [displayList, setDisplayList] = useState([]);
 
-  function getDisplayList() {
-    return ark
+  useEffect(() => {
+    const filteredArk = ark
       .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
       .filter((paper) => material === "" ? true : paper.material === material)
       .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
-      .filter((paper) => isSearchMatch(paper, searchText))
-  }
+      .filter((paper) => isSearchMatch(paper, searchText));
+    setDisplayList(filteredArk);
+    setCategoryOptions(getCategorys(filteredArk));
+  }, [ark, material, searchText, categoryFilter, hasPagesFilter])
 
-  function getCategorysForDisplayList() {
-    const categorys = ark.map((paper) => paper.category);
-    const uniqueCategorys = Array.from(new Set(categorys))
-    return ["Any", ...uniqueCategorys];
-    //    return ["Any", "Hardware", "Software"]
-  }
-
-  function isSearchMatch(item, text) {
-    const textValues = item.title + item.venue + item.publisher;
+  function isSearchMatch(candidate, text) {
+    const textValues = candidate.title + candidate.venue + candidate.publisher;
     return textValues.toUpperCase().includes(text.toUpperCase());
+  }
+
+  function handleCategoryChange(event) {
+    setCategoryFilter(event.target.value);
   }
 
   return (
@@ -39,13 +39,13 @@ function PaperListContainer({ ark, material }) {
         <PaperSearchInput text={searchText} setText={setSearchText} />
         <CategorySelect
           category={categoryFilter}
-          onCategoryChange={setCategoryFilter}
+          onCategoryChange={handleCategoryChange}
           categoryOptions={categoryOptions}
         />
         <PaperSortSelect />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
       </PaperListControls>
-      <PaperList list={getDisplayList()} />
+      <PaperList list={displayList} />
     </>
   )
 }

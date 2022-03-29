@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import CategorySelect from "./CategorySelect";
 
-function NewPaperForm({ onNewPaper }) {
+function NewPaperForm({ onNewPaper, categorys }) {
 
-  const categorys = [
-    "Literature",
-    "History",
-    "Hardware",
-    "Software",
-    "Land",
-    "Road",
-    "Tourist",
-    "Greek Latin",
-    "Opera",
-    "Theatre",
-    "Music"
-  ]
+  // const categorys = [
+  //   "Literature",
+  //   "History",
+  //   "Hardware",
+  //   "Software",
+  //   "Land",
+  //   "Road",
+  //   "Tourist",
+  //   "Greek Latin",
+  //   "Opera",
+  //   "Theatre",
+  //   "Music"
+  // ]
 
   const blankPaper = {
     material: "Book",

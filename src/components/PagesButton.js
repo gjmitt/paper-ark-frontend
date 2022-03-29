@@ -1,13 +1,13 @@
 import React from 'react'
 
-function PagesButton() {
+function PagesButton({ hasPages }) {
 
   function handlePagesClick(e) {
     console.log("Pages button click")
   }
 
   return (
-    <button onClick={handlePagesClick}>Pages</button>
+    <button disabled={!hasPages} onClick={handlePagesClick}>Pages</button>
   )
 }
 

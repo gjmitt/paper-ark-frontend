@@ -1,10 +1,11 @@
 import React from 'react';
 import Paper from "./Paper";
 
-function PaperList({ ark }) {
+function PaperList({ list }) {
+
   return (
     <div>
-      {ark.map((paper) => <Paper key={paper.title} paper={paper} />)}
+      {list.map((paper) => <Paper key={paper.title} paper={paper} />)}
     </div>
   )
 }

@@ -15,3 +15,14 @@ code {
 .break {
   white-space: pre-line;
 }
+
+.nav-link {
+  display: inline-block;
+  padding: 12px;
+  background-color: lightgray;
+  color: black;
+};
+
+.active-nav-link {
+  background-color: aqua;
+}

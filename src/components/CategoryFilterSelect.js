@@ -1,17 +1,18 @@
 import React from 'react'
 
-function CategoryFilterSelect() {
-
-  function handleCategorySelect(e) {
-    console.log("Category selected", e.target.value)
-  }
+function CategoryFilterSelect({ category, onCategoryChange, categoryOptions }) {
 
   return (
-    <select onChange={handleCategorySelect}>
-      <option>Hardware</option>
-      <option>Software</option>
-    </select>
+    <label>Category:
+      <select value={category} onChange={(e) => onCategoryChange(e.target.value)}>
+        {categoryOptions.map((item) => 
+          <option key={item} value={item}>{item}</option>
+        )}
+      </select>
+    </label>
   )
 }
 
 export default CategoryFilterSelect
+
+

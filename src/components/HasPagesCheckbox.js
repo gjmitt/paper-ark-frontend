@@ -1,18 +1,16 @@
 import React from 'react'
 
-function HasPagesCheckbox() {
-
-  function handleCheckBox(e) {
-    console.log("Has Pages checkbox changed", e.target.checked)
-  }
-
+function HasPagesCheckbox({ checkboxValue, onCheckboxChange }) {
 
   return (
-    <input
-      name="hasPageCheckbox"
-      type="checkbox"
-      onChange={handleCheckBox}
-    />
+    <label>Pages?
+      <input
+        type="checkbox"
+        value={checkboxValue}
+        onChange={(e) => onCheckboxChange(e.target.checked)}
+      />
+
+    </label>
   )
 }
 

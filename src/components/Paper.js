@@ -27,7 +27,7 @@ function Paper({ paper }) {
       <PaperControls>
         <MoreButton showMore={showMore} setShowMore={setShowMore} />
         <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
-        <PagesButton />
+        <PagesButton hasPages={paper.hasPages} />
       </PaperControls>
       <div>
         {paper.id}: {paper.title}

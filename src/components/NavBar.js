@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom';
 
 function NavBar({ setSelectedMaterial }) {
 
@@ -12,27 +13,17 @@ function NavBar({ setSelectedMaterial }) {
 
   return (
     <div>
-      <span>
-        <button onClick={() => handleNavClick('home')}>Home</button>
-      </span>
-      <span>
-        <button onClick={() => handleNavClick('about')}>About</button>
-      </span>
-      <span>
-        <button onClick={() => handleMaterialClick('Book')}>Books</button>
-      </span>
-      <span>
-        <button onClick={() => handleMaterialClick('Map')}>Maps</button>
-      </span>
-      <span>
-        <button onClick={() => handleMaterialClick('Event')}>Events</button>
-      </span>
-      <span>
-        <button onClick={() => handleNavClick('new')}>New</button>
-      </span>
+      <NavLink to="/" exact className="nav-link" activeClassName="active-nav-link">Home</NavLink>
+      <NavLink to="/about" exact >About</NavLink>
+      <NavLink to="/paper" exact >All</NavLink>
+      <NavLink to="/paper/maps" exact >Maps</NavLink>
+      <NavLink to="/paper/books" exact >Books</NavLink>
+      <NavLink to="/paper/events" exact >Events</NavLink>
 
     </div>
   )
 }
 
 export default NavBar
+
+

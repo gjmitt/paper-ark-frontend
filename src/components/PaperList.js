@@ -1,13 +1,19 @@
 import React from 'react';
-import Paper from "./Paper";
+import { Link } from "react-router-dom";
 
-function PaperList({ list }) {
+function PaperList({ list, material }) {
 
   return (
     <div>
-      {list.map((paper) => <Paper key={paper.title} paper={paper} />)}
+      {list.map((paper, index) =>
+        <li key={paper.id}>
+          <Link to={`/paper/${material}/${index}`}>{paper.callNum} </Link>
+          {paper.title}
+        </li>
+      )}
     </div>
   )
 }
 
 export default PaperList
+

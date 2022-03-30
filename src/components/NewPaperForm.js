@@ -3,20 +3,6 @@ import CategorySelect from "./CategorySelect";
 
 function NewPaperForm({ onNewPaper, categorys }) {
 
-  // const categorys = [
-  //   "Literature",
-  //   "History",
-  //   "Hardware",
-  //   "Software",
-  //   "Land",
-  //   "Road",
-  //   "Tourist",
-  //   "Greek Latin",
-  //   "Opera",
-  //   "Theatre",
-  //   "Music"
-  // ]
-
   const blankPaper = {
     material: "Book",
     category: "Literature",
@@ -36,7 +22,7 @@ function NewPaperForm({ onNewPaper, categorys }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_URL}/paper`, {
+    fetch(`${process.env.REACT_APP_API_URL}/${formData.material}/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

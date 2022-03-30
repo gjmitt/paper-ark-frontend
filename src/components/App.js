@@ -9,12 +9,15 @@ import NewPaperForm from "./NewPaperForm";
 
 function App() {
   const [ark, setArk] = useState([]);
+  const [material, setMaterial] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/paper/`)
-      .then((resp) => resp.json())
-      .then((items) => setArk(items))
-  }, [])
+    if (material !== "") {
+      fetch(`${process.env.REACT_APP_API_URL}/${material}`)
+        .then((resp) => resp.json())
+        .then((items) => setArk(items))
+    }
+  }, [material])
 
   function handleNewPaper(newPaper) {
     setArk([...ark, newPaper]);
@@ -26,21 +29,16 @@ function App() {
     return ["Any", ...uniqueCategorys];
   }
 
-  function getMaterial(location) {
-    const path = location.pathname;
-    return path.slice(path.indexOf(path) + 7);
-  }
-
   return (
     <div className="App">
       <Header />
-      <NavBar />
+      <NavBar setMaterial={setMaterial} />
       <Switch>
         <Route exact path="/about">
           <About />
         </Route>
         <Route path="/paper">
-          <PaperListContainer ark={ark} getCategorys={getCategorys} material={getMaterial(useLocation())} />
+          <PaperListContainer ark={ark} getCategorys={getCategorys} material={material} />
         </Route>
         <Route exact path="/new">
           <NewPaperForm onNewPaper={handleNewPaper} categorys={getCategorys(ark)} />

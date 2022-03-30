@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react'
+import { Route, useRouteMatch } from 'react-router-dom';
 import PaperList from "./PaperList"
+import Paper from "./Paper"
 import PaperListControls from './PaperListControls'
 import CategorySelect from './CategorySelect';
 import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
-import PaperSortSelect from './PaperSortSelect';
 
 function PaperListContainer({ ark, getCategorys, material }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
-  // const [sortKey, setSortKey] = useState("");
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [displayList, setDisplayList] = useState([]);
-  
+
+  const match = useRouteMatch();
+
   useEffect(() => {
     const filteredArk = ark
       .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
-      .filter((paper) => material === "" ? true : paper.material.toUpperCase() === material.toUpperCase())
       .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
       .filter((paper) => isSearchMatch(paper, searchText));
     setDisplayList(filteredArk);
@@ -42,10 +43,15 @@ function PaperListContainer({ ark, getCategorys, material }) {
           onCategoryChange={handleCategoryChange}
           categoryOptions={categoryOptions}
         />
-        <PaperSortSelect />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
       </PaperListControls>
-      <PaperList list={displayList} />
+      <Route exact path={match.url}>
+        <h3>Choose a movie from the list above</h3>
+      </Route>
+      <Route path={`${match.url}/${material}/:paperIndex`}>
+        <Paper list={displayList} material={material} />
+      </Route>
+      <PaperList list={displayList} material={material} />
     </>
   )
 }

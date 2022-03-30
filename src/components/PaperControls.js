@@ -1,8 +1,10 @@
 import React from 'react'
 
+// Composition, for the point of composition!
+
 function PaperControls({ children }) {
   return (
-    <div>Paper Controls
+    <div>
       {children}
     </div>
   )

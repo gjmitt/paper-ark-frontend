@@ -6,23 +6,23 @@ import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
 import PaperSortSelect from './PaperSortSelect';
 
-function PaperListContainer({ ark, material, getCategorys }) {
+function PaperListContainer({ ark, getCategorys, material }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
   // const [sortKey, setSortKey] = useState("");
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [displayList, setDisplayList] = useState([]);
-
+  
   useEffect(() => {
     const filteredArk = ark
       .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
-      .filter((paper) => material === "" ? true : paper.material === material)
+      .filter((paper) => material === "" ? true : paper.material.toUpperCase() === material.toUpperCase())
       .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
       .filter((paper) => isSearchMatch(paper, searchText));
     setDisplayList(filteredArk);
     setCategoryOptions(getCategorys(filteredArk));
-  }, [ark, material, searchText, categoryFilter, hasPagesFilter])
+  }, [ark, material, searchText, categoryFilter, hasPagesFilter, getCategorys])
 
   function isSearchMatch(candidate, text) {
     const textValues = candidate.title + candidate.venue + candidate.publisher;

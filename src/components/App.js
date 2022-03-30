@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import PaperListContainer from "./PaperListContainer";
 import Header from "./Header";
 import NavBar from "./NavBar";
@@ -26,6 +26,11 @@ function App() {
     return ["Any", ...uniqueCategorys];
   }
 
+  function getMaterial(location) {
+    const path = location.pathname;
+    return path.slice(path.indexOf(path) + 7);
+  }
+
   return (
     <div className="App">
       <Header />
@@ -34,17 +39,8 @@ function App() {
         <Route exact path="/about">
           <About />
         </Route>
-        <Route exact path="/paper">
-          <PaperListContainer ark={ark} material="" getCategorys={getCategorys} />
-        </Route>
-        <Route exact path="/paper/maps">
-          <PaperListContainer ark={ark} material="Map" getCategorys={getCategorys} />
-        </Route>
-        <Route exact path="/paper/books">
-          <PaperListContainer ark={ark} material="Book" getCategorys={getCategorys} />
-        </Route>
-        <Route exact path="/paper/events">
-          <PaperListContainer ark={ark} material="Event" getCategorys={getCategorys} />
+        <Route path="/paper">
+          <PaperListContainer ark={ark} getCategorys={getCategorys} material={getMaterial(useLocation())} />
         </Route>
         <Route exact path="/new">
           <NewPaperForm onNewPaper={handleNewPaper} categorys={getCategorys(ark)} />

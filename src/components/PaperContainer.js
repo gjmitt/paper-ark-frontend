@@ -7,14 +7,14 @@ import CategorySelect from './CategorySelect';
 import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
 
-function PaperListContainer({ ark, getCategorys, material }) {
+function PaperContainer({ ark, getCategorys, material, onLoan }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [displayList, setDisplayList] = useState([]);
 
-  const match = useRouteMatch();
+  const routeMatch = useRouteMatch();
 
   useEffect(() => {
     const filteredArk = ark
@@ -45,15 +45,15 @@ function PaperListContainer({ ark, getCategorys, material }) {
         />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
       </PaperListControls>
-      <Route exact path={match.url}>
+      <Route exact path={routeMatch.url}>
         <h3>Choose a movie from the list above</h3>
       </Route>
-      <Route path={`${match.url}/${material}/:paperIndex`}>
-        <Paper list={displayList} material={material} />
+      <Route path={`${routeMatch.url}/${material}/:paperIndex`}>
+        <Paper list={displayList} selectedMaterial={material} toggleOnLoan={onLoan} />
       </Route>
       <PaperList list={displayList} material={material} />
     </>
   )
 }
 
-export default PaperListContainer
+export default PaperContainer

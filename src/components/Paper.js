@@ -1,21 +1,16 @@
-import React, { useState, useEfect, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import PaperControls from './PaperControls';
 import BorrowButton from './BorrowButton';
 import PagesButton from './PagesButton';
 
-function Paper({ list, material }) {
-  const [onLoan, setOnLoan] = useState(false)
-  const [paper, setPaper] = useState({})
+function Paper({ list, selectedMaterial, toggleOnLoan }) {
   const params = useParams();
-
-  useEffect(() => {
-    setPaper(list[params.paperIndex]);
-    setOnLoan(list[params.paperIndex].onLoan)
-  }, [list, params.paperIndex])
+  const paper = list[params.paperIndex];
+  const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount } = paper;
 
   function handleLoan() {
-    fetch(`${process.env.REACT_APP_API_URL}/${material}/${paper.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/${selectedMaterial}/${paper.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -23,31 +18,28 @@ function Paper({ list, material }) {
       body: JSON.stringify({ onLoan: !onLoan }),
     })
       .then((r) => r.json())
-      .then((updated) => {
-        setOnLoan(updated.onLoan);
-        paper.onLoan = updated.onLoan;
-      });
+      .then(() => toggleOnLoan(paper.id)
+      );
   }
 
   return (
     <div>
       <PaperControls>
         <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
-        <PagesButton hasPages={paper.hasPages} />
+        <PagesButton hasPages={hasPages} />
       </PaperControls>
       <div>
-        {paper.id}: {paper.title}
+        Id: {paper.id}<br></br>
+        {callNum}: {title}<br></br>
+        Category: {category}
       </div>
-      <div>
-        {paper.category}
-      </div>
-      Year: {paper.year}<br></br>
-      {paper.material === "Book" ? `Author: ${paper.author}
-      Publisher: ${paper.publisher}
-      Pages: ${paper.imageCount}   ISBN: ${paper.isbn}`
+      Year: {year}<br></br>
+      {material === "Book" ? `Author: ${author}
+      Publisher: ${publisher}
+      Pages: ${imageCount}   ISBN: ${isbn}`
         : null}
-      {paper.material === "Map" && paper.size > "" ? `Size: ${paper.size}\n` : null}
-      {paper.material === "Event" ? `Venue: ${paper.venue}\n` : null}
+      {material === "Map" && size > "" ? `Size: ${size}\n` : null}
+      {material === "Event" ? `Venue: ${venue}\n` : null}
     </div>
   )
 }

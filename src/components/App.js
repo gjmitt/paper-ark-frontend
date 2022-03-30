@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import PaperListContainer from "./PaperListContainer";
+import PaperContainer from "./PaperContainer";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import About from "./About";
@@ -23,6 +23,11 @@ function App() {
     setArk([...ark, newPaper]);
   }
 
+  function handleOnLoan(id) {
+    const newArk = ark.map((item) => item.id === id ? { ...item, onLoan: !item.onLoan } : item)
+    setArk(newArk);
+  }
+
   function getCategorys(items) {
     const categorys = items.map((paper) => paper.category);
     const uniqueCategorys = Array.from(new Set(categorys))
@@ -38,7 +43,12 @@ function App() {
           <About />
         </Route>
         <Route path="/paper">
-          <PaperListContainer ark={ark} getCategorys={getCategorys} material={material} />
+          <PaperContainer
+            ark={ark}
+            getCategorys={getCategorys}
+            material={material}
+            onLoan={handleOnLoan}
+          />
         </Route>
         <Route exact path="/new">
           <NewPaperForm onNewPaper={handleNewPaper} categorys={getCategorys(ark)} />

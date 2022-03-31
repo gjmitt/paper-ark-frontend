@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import CategorySelect from "./CategorySelect";
 
-function NewPaperForm({ onNewPaper, categoryOptions }) {
+function NewPaperForm({ onNewPaper, categoryOptions, material }) {
 
   const blankPaper = {
-    material: "Book",
-    category: "Literature",
+    material: material,
+    category: "",
     imageCount: 0,
     title: "",
     author: "",
@@ -46,14 +46,14 @@ function NewPaperForm({ onNewPaper, categoryOptions }) {
 
   return (
     <form onSubmit={handleSubmit} >
-      <label>
+      {/* <label>
         Type:
         <select name="material" value={formData.material} onChange={handleChange} >
           <option value="Book">Book</option>
           <option value="Map">Map</option>
           <option value="Event">Event</option>
         </select>
-      </label>
+      </label> */}
       <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categoryOptions} />
       <label>
         Title:

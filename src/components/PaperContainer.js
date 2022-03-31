@@ -34,9 +34,6 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
         />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
       </PaperListControls>
-      <Route exact path={routeMatch.url}>
-        <h3>Choose a movie from the list above</h3>
-      </Route>
       <Route path={`${routeMatch.url}/${material}/:paperId`}>
         <Paper list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
       </Route>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import PaperContainer from "./PaperContainer";
 import Header from "./Header";
 import NavBar from "./NavBar";
@@ -51,7 +51,11 @@ function App() {
           />
         </Route>
         <Route exact path="/new">
-          <NewPaperForm onNewPaper={handleNewPaper} categoryOptions={getCategorys(ark)} />
+          <NewPaperForm
+            onNewPaper={handleNewPaper}
+            categoryOptions={getCategorys(ark)}
+            material={material}
+          />
         </Route>
         <Route exact path="/">
           <Home />

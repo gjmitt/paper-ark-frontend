@@ -37,12 +37,12 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
 
   return (
     <div>
+      <h2>Details</h2>
       <PaperControls>
         <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
         <PagesButton hasPages={hasPages} />
       </PaperControls>
       <div>
-        <h2>Details</h2>
         Id: {paper.id}<br></br>
         {callNum}: {title}<br></br>
         Category: {category}

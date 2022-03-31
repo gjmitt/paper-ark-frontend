@@ -6,18 +6,20 @@ import PaperListControls from './PaperListControls'
 import CategorySelect from './CategorySelect';
 import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
+import ISBNCheckbox from './ISBNCheckBox';
 
 function PaperContainer({ ark, categoryOptions, material, onLoan }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
+  const [isbnFilter, setIsbnFilter] = useState(false);
 
   const routeMatch = useRouteMatch();
 
   const filteredArk = ark
     .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
-    // .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
-    .filter((paper) => !hasPagesFilter ? true : paper.isbn !== "")
+    .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
+    .filter((paper) => !isbnFilter ? true : paper.isbn !== "")
     .filter((paper) => (paper.title + paper.venue + paper.publisher).toUpperCase().includes(searchText.toUpperCase()));
 
   function handleCategoryChange(event) {
@@ -38,6 +40,8 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
           categoryOptions={["Any", ...categoryOptions]}
         />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
+        <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
+
       </PaperListControls>
       <PaperList list={filteredArk} material={material} />
     </>

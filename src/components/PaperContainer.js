@@ -30,7 +30,7 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
         <CategorySelect
           category={categoryFilter}
           onCategoryChange={handleCategoryChange}
-          categoryOptions={categoryOptions}
+          categoryOptions={["Any", ...categoryOptions]}
         />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
       </PaperListControls>

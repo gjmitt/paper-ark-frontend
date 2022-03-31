@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import CategorySelect from "./CategorySelect";
 
 function NewPaperForm({ onNewPaper, categoryOptions, material }) {
 
-  const blankPaper = {
+  const [formData, setFormData] = useState({
     material: material,
-    category: "",
+    category: categoryOptions[0],
     imageCount: 0,
     title: "",
     author: "",
@@ -17,8 +18,9 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
     venue: "",
     hasPages: false,
     onLoan: false
-  };
-  const [formData, setFormData] = useState(blankPaper);
+  });
+
+  let history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -32,7 +34,7 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
       .then((r) => r.json())
       .then((newPaper) => {
         onNewPaper(newPaper);
-        setFormData(blankPaper);
+        history.push(`/paper/${newPaper.material}/${newPaper.id}`)
       });
   }
 
@@ -48,7 +50,7 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
     <form onSubmit={handleSubmit} >
       {/* <label>
         Type:
-        <select name="material" value={formData.material} onChange={handleChange} >
+        <select disabled name="material" value={formData.material} onChange={handleChange} >
           <option value="Book">Book</option>
           <option value="Map">Map</option>
           <option value="Event">Event</option>
@@ -70,6 +72,10 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
       <label>
         ISBN:
         <input name="isbn" type="text" value={formData.isbn} onChange={handleChange} />
+      </label>
+      <label>
+        Call#:
+        <input name="callNum" type="text" value={formData.callNum} onChange={handleChange} />
       </label>
       <label>
         Size:

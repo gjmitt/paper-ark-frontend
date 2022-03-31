@@ -31,7 +31,8 @@ function App() {
   function getCategorys(items) {
     const categorys = items.map((paper) => paper.category);
     const uniqueCategorys = Array.from(new Set(categorys))
-    return ["Any", ...uniqueCategorys];
+    // return ["Any", ...uniqueCategorys];
+    return uniqueCategorys;
   }
 
   return (

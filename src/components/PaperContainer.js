@@ -16,7 +16,8 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
 
   const filteredArk = ark
     .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
-    .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
+    // .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
+    .filter((paper) => !hasPagesFilter ? true : paper.isbn !== "")
     .filter((paper) => (paper.title + paper.venue + paper.publisher).toUpperCase().includes(searchText.toUpperCase()));
 
   function handleCategoryChange(event) {
@@ -25,6 +26,10 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
 
   return (
     <>
+      <Route path={`${routeMatch.url}/${material}/:paperId`}>
+        <Paper list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
+      </Route>
+      <h2>List</h2>
       <PaperListControls>
         <PaperSearchInput text={searchText} setText={setSearchText} />
         <CategorySelect
@@ -34,9 +39,6 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
         />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
       </PaperListControls>
-      <Route path={`${routeMatch.url}/${material}/:paperId`}>
-        <Paper list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
-      </Route>
       <PaperList list={filteredArk} material={material} />
     </>
   )

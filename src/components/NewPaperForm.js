@@ -47,8 +47,10 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} >
-      {/* <label>
+    <>
+      <h2>New {material.charAt(0).toUpperCase()+material.slice(1)}</h2>
+      <form onSubmit={handleSubmit} >
+        {/* <label>
         Type:
         <select disabled name="material" value={formData.material} onChange={handleChange} >
           <option value="Book">Book</option>
@@ -56,37 +58,38 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
           <option value="Event">Event</option>
         </select>
       </label> */}
-      <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categoryOptions} />
-      <label>
-        Title:
-        <input name="title" type="text" value={formData.title} onChange={handleChange} />
-      </label>
-      <label>
-        Author:
-        <input name="author" type="text" value={formData.author} onChange={handleChange} />
-      </label>
-      <label>
-        Publisher:
-        <input name="publisher" type="text" value={formData.publisher} onChange={handleChange} />
-      </label>
-      <label>
-        ISBN:
-        <input name="isbn" type="text" value={formData.isbn} onChange={handleChange} />
-      </label>
-      <label>
-        Call#:
-        <input name="callNum" type="text" value={formData.callNum} onChange={handleChange} />
-      </label>
-      <label>
-        Size:
-        <input name="size" type="text" value={formData.size} onChange={handleChange} />
-      </label>
-      <label>
-        Venue:
-        <input name="venue" type="text" value={formData.venue} onChange={handleChange} />
-      </label>
-      <button>Submit</button>
-    </form>
+        <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categoryOptions} />
+        <label>
+          Title:
+          <input name="title" type="text" value={formData.title} onChange={handleChange} />
+        </label>
+        <label>
+          Author:
+          <input name="author" type="text" value={formData.author} onChange={handleChange} />
+        </label>
+        <label>
+          Publisher:
+          <input name="publisher" type="text" value={formData.publisher} onChange={handleChange} />
+        </label>
+        <label>
+          ISBN:
+          <input name="isbn" type="text" value={formData.isbn} onChange={handleChange} />
+        </label>
+        <label>
+          Call#:
+          <input name="callNum" type="text" value={formData.callNum} onChange={handleChange} />
+        </label>
+        <label>
+          Size:
+          <input name="size" type="text" value={formData.size} onChange={handleChange} />
+        </label>
+        <label>
+          Venue:
+          <input name="venue" type="text" value={formData.venue} onChange={handleChange} />
+        </label>
+        <button>Submit</button>
+      </form>
+    </>
   )
 }
 

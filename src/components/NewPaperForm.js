@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CategorySelect from "./CategorySelect";
 
-function NewPaperForm({ onNewPaper, categorys }) {
+function NewPaperForm({ onNewPaper, categoryOptions }) {
 
   const blankPaper = {
     material: "Book",
@@ -54,7 +54,7 @@ function NewPaperForm({ onNewPaper, categorys }) {
           <option value="Event">Event</option>
         </select>
       </label>
-      <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categorys} />
+      <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categoryOptions} />
       <label>
         Title:
         <input name="title" type="text" value={formData.title} onChange={handleChange} />

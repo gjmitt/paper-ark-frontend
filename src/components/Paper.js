@@ -6,7 +6,8 @@ import PagesButton from './PagesButton';
 
 function Paper({ list, selectedMaterial, toggleOnLoan }) {
   const params = useParams();
-  const paper = list[params.paperIndex];
+  // Be careful with equivalence, params is a string value!
+  const paper = list.find((item) => (item.id == params.paperId));
   const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount } = paper;
 
   function handleLoan() {

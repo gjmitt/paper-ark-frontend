@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 
-function NavBar({ setMaterial }) {
+function NavBar({ setMaterial, showNewLink }) {
 
   return (
     <div>
@@ -10,7 +10,10 @@ function NavBar({ setMaterial }) {
       <NavLink to="/paper/map" exact onClick={() => setMaterial("map")}>Maps</NavLink>
       <NavLink to="/paper/book" exact onClick={() => setMaterial("book")}>Books</NavLink>
       <NavLink to="/paper/event" exact onClick={() => setMaterial("event")}>Events</NavLink>
-      <NavLink to="/new" exact >New</NavLink>
+      {showNewLink
+        ? <NavLink to="/new" exact >New</NavLink>
+        : null
+      }
     </div>
   )
 }

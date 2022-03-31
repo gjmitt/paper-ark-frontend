@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <NavBar setMaterial={setMaterial} />
+      <NavBar setMaterial={setMaterial} showNewLink={ark.length > 0} />
       <Switch>
         <Route exact path="/about">
           <About />
@@ -45,13 +45,13 @@ function App() {
         <Route path="/paper">
           <PaperContainer
             ark={ark}
-            getCategorys={getCategorys}
+            categoryOptions={getCategorys(ark)}
             material={material}
             onLoan={handleOnLoan}
           />
         </Route>
         <Route exact path="/new">
-          <NewPaperForm onNewPaper={handleNewPaper} categorys={getCategorys(ark)} />
+          <NewPaperForm onNewPaper={handleNewPaper} categoryOptions={getCategorys(ark)} />
         </Route>
         <Route exact path="/">
           <Home />

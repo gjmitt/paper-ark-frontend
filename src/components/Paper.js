@@ -4,13 +4,16 @@ import PaperControls from './PaperControls';
 import BorrowButton from './BorrowButton';
 import PagesButton from './PagesButton';
 import GoogleBook from './GoogleBook';
+import Cover from './Cover';
+import Pages from './Pages';
 
 function Paper({ list, selectedMaterial, toggleOnLoan }) {
-  const params = useParams();
-  // Be careful with equivalence, params is a string value!
-  const paper = list.find((item) => (item.id == params.paperId));
-  const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount } = paper;
   const [googleResult, setGoogleResult] = useState([]);
+  const [showPages, setShowPages] = useState(false);
+
+  const params = useParams();
+  const paper = list.find((item) => (item.id == params.paperId)); // Be careful with equivalence, params is a string value!
+  const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount } = paper;
 
   useEffect(() => {
     if (isbn !== "") {
@@ -38,10 +41,16 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
   return (
     <div>
       <h2>Details</h2>
-      <PaperControls>
-        <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
-        <PagesButton hasPages={hasPages} />
-      </PaperControls>
+      {showPages
+        ? <Pages callNum={callNum} pageCount={imageCount} setShowPages={setShowPages} />
+        : <>
+          <PaperControls>
+            <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
+            <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
+          </PaperControls>
+          <Cover filename={paper.coverImageFilename} />
+        </>
+      }
       <div>
         Id: {paper.id}<br></br>
         {callNum}: {title}<br></br>

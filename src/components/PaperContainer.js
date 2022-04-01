@@ -20,7 +20,7 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
     .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
     .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
     .filter((paper) => !isbnFilter ? true : paper.isbn !== "")
-    .filter((paper) => (paper.title + paper.venue + paper.publisher).toUpperCase().includes(searchText.toUpperCase()));
+    .filter((paper) => (paper.callNum + paper.title + paper.venue + paper.publisher).toUpperCase().includes(searchText.toUpperCase()));
 
   function handleCategoryChange(event) {
     setCategoryFilter(event.target.value);

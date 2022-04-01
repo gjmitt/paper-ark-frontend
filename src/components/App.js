@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+
 import PaperContainer from "./PaperContainer";
 import Header from "./Header";
 import NavBar from "./NavBar";

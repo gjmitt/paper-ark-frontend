@@ -1,9 +1,9 @@
 import React from 'react'
 
-function PagesButton({ hasPages }) {
+function PagesButton({ hasPages, onButtonClick }) {
 
   function handlePagesClick(e) {
-    console.log("Pages button click")
+    onButtonClick();
   }
 
   return (

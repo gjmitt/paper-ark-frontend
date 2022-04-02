@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function PageControls({ pageNum, pageCount, onNextClick, onPlayClick, onPrevClick, onCloseClick }) {
 

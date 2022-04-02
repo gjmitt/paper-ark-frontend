@@ -39,8 +39,18 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
           onCategoryChange={handleCategoryChange}
           categoryOptions={["Any", ...categoryOptions]}
         />
-        <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
-        <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
+        {material === "Book" || material === "Event"
+          ? <>
+            <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
+          </>
+          : null
+        }
+        {material === "Book"
+          ? <>
+            <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
+          </>
+          : null
+        }
 
       </PaperListControls>
       <PaperList list={filteredArk} material={material} />

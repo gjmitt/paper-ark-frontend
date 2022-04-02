@@ -23,7 +23,7 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
     } else {
       setGoogleResult([]);
     }
-  }, [paper])
+  }, [paper, isbn])
 
   function handleLoan() {
     fetch(`${process.env.REACT_APP_API_URL}/${selectedMaterial}/${paper.id}`, {
@@ -42,13 +42,13 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
     <div>
       <h2>{material}</h2>
       {showPages
-        ? <Pages callNum={callNum} setShowPages={setShowPages} />
+        ? <Pages callNum={callNum} setShowPages={setShowPages} selectedMaterial={selectedMaterial} />
         : <>
           <PaperControls>
             <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
             <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
           </PaperControls>
-          {coverImageFilename != ""
+          {coverImageFilename !== ""
             ? <Page filename={`covers/${coverImageFilename}`} />
             : null}
         </>

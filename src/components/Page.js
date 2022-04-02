@@ -1,15 +1,10 @@
 import React from 'react'
 
-function Page({ callNum, pageNum }) {
-  const region = 'us-east-2';
-  const bucket = 'demo-liber-alch-paper';
-
-  const url = `https://${bucket}.s3.${region}.amazonaws.com/pages/${callNum}/${callNum}_${pageNum.toString().padStart(4, '0')}.png`
-
+function Page({ filename }) {
   return (
     <img
-      height="300px"
-      src={url}
+      height="400px"
+      src={"https://" + process.env.REACT_APP_BUCKET + ".s3." + process.env.REACT_APP_REGION + ".amazonaws.com/" + filename}
     ></img>
   )
 }

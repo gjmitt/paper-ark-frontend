@@ -4,8 +4,8 @@ import PaperControls from './PaperControls';
 import BorrowButton from './BorrowButton';
 import PagesButton from './PagesButton';
 import GoogleBook from './GoogleBook';
-import Cover from './Cover';
 import Pages from './Pages';
+import Page from './Page';
 
 function Paper({ list, selectedMaterial, toggleOnLoan }) {
   const [googleResult, setGoogleResult] = useState([]);
@@ -48,7 +48,7 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
             <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
             <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
           </PaperControls>
-          <Cover filename={paper.coverImageFilename} />
+          <Page filename={`covers/${paper.coverImageFilename}`} />
         </>
       }
       <div>

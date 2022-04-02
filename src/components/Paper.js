@@ -13,7 +13,7 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
 
   const params = useParams();
   const paper = list.find((item) => (item.id == params.paperId)); // Be careful with equivalence, params is a string value!
-  const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount } = paper;
+  const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount, coverImageFilename } = paper;
 
   useEffect(() => {
     if (isbn !== "") {
@@ -40,15 +40,17 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
 
   return (
     <div>
-      <h2>Details</h2>
+      <h2>{material}</h2>
       {showPages
-        ? <Pages callNum={callNum} pageCount={imageCount} setShowPages={setShowPages} />
+        ? <Pages callNum={callNum} setShowPages={setShowPages} />
         : <>
           <PaperControls>
             <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
             <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
           </PaperControls>
-          <Page filename={`covers/${paper.coverImageFilename}`} />
+          {coverImageFilename != ""
+            ? <Page filename={`covers/${coverImageFilename}`} />
+            : null}
         </>
       }
       <div>
@@ -56,7 +58,8 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
         {callNum}: {title}<br></br>
         Category: {category}
         Year: {year}<br></br>
-        {material === "Book" ? `Author: ${author}
+        {material === "Book"
+          ? `Author: ${author}
       Publisher: ${publisher}
       Pages: ${imageCount}   ISBN: ${isbn}`
           : null}

@@ -5,9 +5,9 @@ import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 import PageControls from './PageControls';
 import Page from './Page';
 
-function Pages({ callNum, pageCount, setShowPages }) {
+function Pages({ callNum, setShowPages }) {
   const [pageFiles, setpageFiles] = useState([]);
-  const [currentPage, setCurrentPage] = useState(2);  // start on the 2nd page because the 1st page is the cover which is already showing
+  const [currentPage, setCurrentPage] = useState(3);  // start on the 3rd page to skip cover and spine 
 
   useEffect(() => {
     const s3 = new S3Client({
@@ -26,6 +26,7 @@ function Pages({ callNum, pageCount, setShowPages }) {
           })
         );
         setpageFiles(pagesData.Contents);
+
       } catch (err) {
         alert("There was an error viewing page images: " + err.message);
       }
@@ -33,9 +34,11 @@ function Pages({ callNum, pageCount, setShowPages }) {
   }, [])
 
   const handlePrev = () => setCurrentPage(currentPage > 1 ? currentPage - 1 : 0);
-  const handleNext = () => setCurrentPage(currentPage < pageCount ? currentPage + 1 : pageCount);
+  const handleNext = () => setCurrentPage(currentPage < pageFiles.length ? currentPage + 1 : currentPage);
   const handleClose = () => setShowPages(false);
   // const handlePlay = () => null;
+
+  console.log(currentPage);
 
   return (
     <>
@@ -46,7 +49,7 @@ function Pages({ callNum, pageCount, setShowPages }) {
       }
       <PageControls
         pageNum={currentPage}
-        pageCount={pageCount}
+        pageCount={pageFiles.length}
         onPrevClick={handlePrev}
         onNextClick={handleNext}
         // onPlayClick={handlePlay}

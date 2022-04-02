@@ -1,15 +1,30 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  margin: "5px";
+  font-family: 'Cardo', serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4, h5 {
+  font-family: 'Work Sans', sans-serif;
+}
+/* reset header size so each is equivalent to the one below, h1 = h2, h2 = h3, etc. */
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1.17rem;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+h4, h5 {
+  font-size: .83rem;
+}
+
+img, video {
+  max-width: 100%;
 }
 
 .break {

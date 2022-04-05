@@ -8,6 +8,7 @@ import Page from './Page';
 function Pages({ callNum, setShowPages, selectedMaterial }) {
   const [pageFiles, setpageFiles] = useState([]);
   const [currentPage, setCurrentPage] = useState(getStartPage(selectedMaterial));
+  const [firstPage, setFirstPage] = useState(1);
 
   useEffect(() => {
     const s3 = new S3Client({
@@ -42,23 +43,21 @@ function Pages({ callNum, setShowPages, selectedMaterial }) {
   const handlePrev = () => setCurrentPage(currentPage > 1 ? currentPage - 1 : currentPage);
   const handleNext = () => setCurrentPage(currentPage < pageFiles.length ? currentPage + 1 : currentPage);
   const handleClose = () => setShowPages(false);
-  // const handlePlay = () => null;
 
   return (
     <>
-      <h3>Pages</h3>
-      {pageFiles.length
-        ? <Page filename={pageFiles[currentPage - 1].Key} />
-        : null
-      }
+      {/* <h3>Pages</h3> */}
       <PageControls
         pageNum={currentPage}
         pageCount={pageFiles.length}
         onPrevClick={handlePrev}
         onNextClick={handleNext}
-        // onPlayClick={handlePlay}
         onCloseClick={handleClose}
       />
+      {pageFiles.length
+        ? <Page filename={pageFiles[currentPage - 1].Key} />
+        : null
+      }
     </>
   )
 }

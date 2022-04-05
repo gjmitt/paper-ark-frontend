@@ -2,12 +2,8 @@ import React from 'react'
 
 function PagesButton({ hasPages, onButtonClick }) {
 
-  function handlePagesClick(e) {
-    onButtonClick();
-  }
-
   return (
-    <button disabled={!hasPages} onClick={handlePagesClick}>Pages</button>
+    <button disabled={!hasPages} onClick={onButtonClick}>Pages</button>
   )
 }
 

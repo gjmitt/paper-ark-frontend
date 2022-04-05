@@ -2,7 +2,7 @@ import React from 'react'
 
 function GoogleBook({ books }) {
   return (
-    <div>
+    <>
       <h3>Google Books ISBN Search</h3>
       {books.items.map((item) =>
         <li
@@ -15,7 +15,7 @@ function GoogleBook({ books }) {
             {item.volumeInfo.title}
           </a>
         </li>)}
-    </div>
+    </>
   )
 }
 

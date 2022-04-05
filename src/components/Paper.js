@@ -39,35 +39,61 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
   }
 
   return (
-    <div>
-      <h2>{material}</h2>
-      {showPages
-        ? <Pages callNum={callNum} setShowPages={setShowPages} selectedMaterial={selectedMaterial} />
-        : <>
-          <PaperControls>
-            <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
-            <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
-          </PaperControls>
-          {coverImageFilename !== ""
-            ? <Page filename={`covers/${coverImageFilename}`} />
-            : null}
-        </>
-      }
-      <div>
-        Id: {paper.id}<br></br>
-        {callNum}: {title}<br></br>
-        Category: {category}
-        Year: {year}<br></br>
-        {material === "Book"
-          ? `Author: ${author}
-      Publisher: ${publisher}
-      Pages: ${imageCount}   ISBN: ${isbn}`
-          : null}
-        {material === "Map" && size > "" ? `Size: ${size}\n` : null}
-        {material === "Event" ? `Venue: ${venue}\n` : null}
+    <>
+      <div className="grid-book-image">
+        <h2>{material}</h2>
+        {showPages
+          ? <Pages callNum={callNum} setShowPages={setShowPages} selectedMaterial={selectedMaterial} />
+          : <>
+            <PaperControls>
+              <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
+              <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
+            </PaperControls>
+            {coverImageFilename !== ""
+              ? <Page filename={`covers/${coverImageFilename}`} />
+              : null}
+          </>
+        }
       </div>
-      {googleResult.totalItems ? <GoogleBook books={googleResult} /> : null}
-    </div>
+      <div className="grid-book-detail">
+        <table>
+          <tr>
+            <td>Id:</td><td>{paper.id}</td>
+          </tr>
+          <tr>
+            <td>Call No.:</td><td>{callNum}</td>
+          </tr>
+          <tr>
+            <td>ISBN:</td><td>{isbn}</td>
+          </tr>
+          <tr>
+            <td>Title:</td><td>{title}</td>
+          </tr>
+          <tr>
+            <td>Category:</td><td>{category}</td>
+          </tr>
+          <tr>
+            <td>Year:</td><td>{year}</td>
+          </tr>
+          <tr>
+            <td>Size:</td><td>{size}</td>
+          </tr>
+          <tr>
+            <td>Venue:</td><td>{venue}</td>
+          </tr>
+          <tr>
+            <td>Author:</td><td>{author}</td>
+          </tr>
+          <tr>
+            <td>Publisher: </td><td>{publisher}</td>
+          </tr>
+          <tr>
+            <td>Pages:</td><td>{imageCount > 0 ? imageCount : null}</td>
+          </tr>
+        </table>
+        {googleResult.totalItems ? <GoogleBook books={googleResult} /> : null}
+      </div>
+    </>
   )
 }
 

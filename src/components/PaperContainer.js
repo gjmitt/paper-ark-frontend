@@ -8,7 +8,7 @@ import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
 import ISBNCheckbox from './ISBNCheckBox';
 
-function PaperContainer({ ark, categoryOptions, material, onLoan }) {
+function PaperContainer({ ark, categoryOptions, material, onLoan, reset }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
@@ -20,7 +20,7 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
     .filter((paper) => categoryFilter === "Any" ? true : paper.category === categoryFilter)
     .filter((paper) => !hasPagesFilter ? true : paper.hasPages)
     .filter((paper) => !isbnFilter ? true : paper.isbn !== "")
-    .filter((paper) => (paper.callNum + paper.title + paper.venue + paper.publisher).toUpperCase().includes(searchText.toUpperCase()));
+    .filter((paper) => paper.title.toUpperCase().includes(searchText.toUpperCase()));
 
   function handleCategoryChange(event) {
     setCategoryFilter(event.target.value);
@@ -31,29 +31,20 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
       <Route path={`${routeMatch.url}/${material}/:paperId`}>
         <Paper list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
       </Route>
-      <h2>List</h2>
-      <PaperListControls>
-        <PaperSearchInput text={searchText} setText={setSearchText} />
-        <CategorySelect
-          category={categoryFilter}
-          onCategoryChange={handleCategoryChange}
-          categoryOptions={["Any", ...categoryOptions]}
-        />
-        {material === "Book" || material === "Event"
-          ? <>
-            <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
-          </>
-          : null
-        }
-        {material === "Book"
-          ? <>
-            <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
-          </>
-          : null
-        }
-
-      </PaperListControls>
-      <PaperList list={filteredArk} material={material} />
+      <div className="grid-list">
+        <h2>List</h2>
+        <PaperListControls>
+          <PaperSearchInput text={searchText} setText={setSearchText} />
+          <CategorySelect
+            category={categoryFilter}
+            onCategoryChange={handleCategoryChange}
+            categoryOptions={["Any", ...categoryOptions]}
+          />
+          <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
+          <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
+        </PaperListControls>
+        <PaperList list={filteredArk} material={material} />
+      </div>
     </>
   )
 }

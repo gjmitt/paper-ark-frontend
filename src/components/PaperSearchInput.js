@@ -3,14 +3,14 @@ import React from 'react'
 function PaperSearchInput({ text, setText }) {
 
   return (
-    <div>Search:
+    <label>Search:
       <input
         type="text"
         name="search"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-    </div>
+    </label>
   )
 }
 

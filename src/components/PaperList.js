@@ -5,14 +5,14 @@ function PaperList({ list, material }) {
 
   return (
     <>
-      <div>
+      <ul>
         {list.map((paper) =>
           <li key={paper.id}>
             <Link to={`/paper/${material}/${paper.id}`}>{paper.callNum} </Link>
             {paper.title}
           </li>
         )}
-      </div>
+      </ul>
     </>
   )
 }

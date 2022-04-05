@@ -31,35 +31,43 @@ function App() {
   function getCategorys(items) {
     const categorys = items.map((paper) => paper.category);
     const uniqueCategorys = Array.from(new Set(categorys))
-    // return ["Any", ...uniqueCategorys];
     return uniqueCategorys;
   }
 
   return (
-    <div className="App">
-      <Header />
-      <NavBar setMaterial={setMaterial} showNewLink={ark.length > 0} />
+    <div className="main-container">
+      <div className="grid-header">
+        <Header />
+        <NavBar setMaterial={setMaterial} showNewLink={ark.length > 0} />
+      </div>
       <Switch>
-        <Route exact path="/about">
-          <About />
-        </Route>
         <Route path="/paper">
           <PaperContainer
             ark={ark}
             categoryOptions={getCategorys(ark)}
             material={material}
             onLoan={handleOnLoan}
+            reset={true}
           />
+        </Route>
+        <Route exact path="/about">
+          <div className="grid-list">
+            <About />
+          </div>
         </Route>
         <Route exact path="/new">
-          <NewPaperForm
-            onNewPaper={handleNewPaper}
-            categoryOptions={getCategorys(ark)}
-            material={material}
-          />
+          {/* <div className="grid-list"> */}
+            <NewPaperForm
+              onNewPaper={handleNewPaper}
+              categoryOptions={getCategorys(ark)}
+              material={material}
+            />
+          {/* </div> */}
         </Route>
         <Route exact path="/">
-          <Home />
+          <div className="grid-list">
+            <Home />
+          </div>
         </Route>
       </Switch>
     </div>

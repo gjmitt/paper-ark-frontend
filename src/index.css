@@ -3,9 +3,14 @@ html {
   font-family: 'Cardo', serif;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: 'Work Sans', sans-serif;
 }
+
 /* reset header size so each is equivalent to the one below, h1 = h2, h2 = h3, etc. */
 h1 {
   font-size: 1.5rem;
@@ -19,12 +24,52 @@ h3 {
   font-size: 1rem;
 }
 
-h4, h5 {
+h4,
+h5 {
   font-size: .83rem;
 }
 
-img, video {
+img,
+video {
   max-width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  margin-left: -40px;
+}
+
+label {
+  padding-left: 10px;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 300px 400px;
+  grid-template-rows: 90px 300px auto;
+  grid-template-areas:
+    "header       header"
+    "list         list"
+    "book-image   book-detail"
+}
+
+.grid-header {
+  grid-area: header;
+}
+
+.grid-book-image {
+  grid-area: book-image;
+}
+
+.grid-book-detail {
+  grid-area: book-detail;
+  margin-left: 10px;
+  margin-top: 80px;
+}
+
+.grid-list {
+  grid-area: list;
+  overflow: auto;
 }
 
 .break {
@@ -34,7 +79,7 @@ img, video {
 .nav-link {
   display: inline-block;
   padding-right: 4px;
-};
+}
 
 .active-nav-link {
   background-color: aqua;

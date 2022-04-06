@@ -51,36 +51,30 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
       <div className="grid-list fields" >
         <h2>New {material.charAt(0).toUpperCase() + material.slice(1)}</h2>
         <form onSubmit={handleSubmit} >
-          <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categoryOptions} />
-          <label>
-            Title:
-            <input name="title" type="text" value={formData.title} onChange={handleChange} />
-          </label>
-          <label>
-            Author:
-            <input name="author" type="text" value={formData.author} onChange={handleChange} />
-          </label><br></br>
-          <label>
-            Publisher:
-            <input name="publisher" type="text" value={formData.publisher} onChange={handleChange} />
-          </label>
-          <label>
-            ISBN:
-            <input name="isbn" type="text" value={formData.isbn} onChange={handleChange} />
-          </label>
-          <label>
-            Call#:
-            <input name="callNum" type="text" value={formData.callNum} onChange={handleChange} />
-          </label><br></br>
-          <label>
-            Size:
-            <input name="size" type="text" value={formData.size} onChange={handleChange} />
-          </label>
-          <label>
-            Venue:
-            <input name="venue" type="text" value={formData.venue} onChange={handleChange} />
-          </label>
-          <button>Submit</button>
+          <p className="field-row">
+            <label htmlFor="title" className="field-label">Title:</label>
+            <input className="field-input" id="title" name="title" type="text" value={formData.title} onChange={handleChange} />
+            <CategorySelect category={formData.category} onCategoryChange={handleChange} categoryOptions={categoryOptions} />
+          </p>
+          <p className="field-row">
+            <label htmlFor="author" className="field-label">Author:</label>
+            <input className="field-input" id="author" name="author" type="text" value={formData.author} onChange={handleChange} />
+            <label htmlFor="publisher" className="field-label">Publisher:</label>
+            <input className="field-input" id="publisher" name="publisher" type="text" value={formData.publisher} onChange={handleChange} />
+          </p>
+          <p className="field-row">
+            <label htmlFor="isbn" className="field-label">ISBN:</label>
+            <input className="field-input" id="isbn" name="isbn" type="text" value={formData.isbn} onChange={handleChange} />
+            <label htmlFor="call-num" className="field-label">Call#:</label>
+            <input className="field-input" id="call-num" name="callNum" type="text" value={formData.callNum} onChange={handleChange} />
+          </p>
+          <p className="field-row">
+            <label htmlFor="size" className="field-label">Size:</label>
+            <input className="field-input" id="size" name="size" type="text" value={formData.size} onChange={handleChange} />
+            <label htmlFor="venue" className="field-label">Venue:</label>
+            <input className="field-input" id="venue" name="venue" type="text" value={formData.venue} onChange={handleChange} />
+          </p>
+            <button className="pos-btn">Submit</button>
         </form>
       </div>
     </>

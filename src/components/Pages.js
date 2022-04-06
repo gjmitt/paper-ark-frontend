@@ -5,10 +5,9 @@ import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 import PageControls from './PageControls';
 import Page from './Page';
 
-function Pages({ callNum, setShowPages, selectedMaterial }) {
+function Pages({ callNum, setShowPages }) {
   const [pageFiles, setpageFiles] = useState([]);
-  const [currentPage, setCurrentPage] = useState(getStartPage(selectedMaterial));
-  const [firstPage, setFirstPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2); // start on 2nd page to skip cover
 
   useEffect(() => {
     const s3 = new S3Client({
@@ -33,12 +32,6 @@ function Pages({ callNum, setShowPages, selectedMaterial }) {
       }
     })();
   }, [callNum])
-
-  function getStartPage(material) {
-    // Start a book on page 3 to skip cover and spine, on 2 otherwise to skip cover.
-    if (material === "Book") return 3;
-    else return 2;
-  }
 
   const handlePrev = () => setCurrentPage(currentPage > 1 ? currentPage - 1 : currentPage);
   const handleNext = () => setCurrentPage(currentPage < pageFiles.length ? currentPage + 1 : currentPage);

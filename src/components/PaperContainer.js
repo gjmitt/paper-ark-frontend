@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { Route, useRouteMatch } from 'react-router-dom';
 import PaperList from "./PaperList"
 import Paper from "./Paper"
-import PaperListControls from './PaperListControls'
 import CategorySelect from './CategorySelect';
 import HasPagesCheckbox from './HasPagesCheckbox';
 import PaperSearchInput from './PaperSearchInput';
 import ISBNCheckbox from './ISBNCheckBox';
 
-function PaperContainer({ ark, categoryOptions, material, onLoan, reset }) {
+function PaperContainer({ ark, categoryOptions, material, onLoan }) {
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("Any");
   const [hasPagesFilter, setHasPagesFilter] = useState(false);
@@ -28,23 +27,21 @@ function PaperContainer({ ark, categoryOptions, material, onLoan, reset }) {
 
   return (
     <>
+      <div className="grid-list">
+        <h2>{material.charAt(0).toUpperCase() + material.slice(1)}s List</h2>
+        <PaperSearchInput text={searchText} setText={setSearchText} />
+        <CategorySelect
+          category={categoryFilter}
+          onCategoryChange={handleCategoryChange}
+          categoryOptions={["Any", ...categoryOptions]}
+        />
+        <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
+        <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
+        <PaperList list={filteredArk} material={material} />
+      </div>
       <Route path={`${routeMatch.url}/${material}/:paperId`}>
         <Paper list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
       </Route>
-      <div className="grid-list">
-        <h2>List</h2>
-        <PaperListControls>
-          <PaperSearchInput text={searchText} setText={setSearchText} />
-          <CategorySelect
-            category={categoryFilter}
-            onCategoryChange={handleCategoryChange}
-            categoryOptions={["Any", ...categoryOptions]}
-          />
-          <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
-          <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
-        </PaperListControls>
-        <PaperList list={filteredArk} material={material} />
-      </div>
     </>
   )
 }

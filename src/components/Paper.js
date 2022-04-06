@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import PaperControls from './PaperControls';
 import BorrowButton from './BorrowButton';
 import PagesButton from './PagesButton';
 import GoogleBook from './GoogleBook';
@@ -8,8 +7,8 @@ import Pages from './Pages';
 import Page from './Page';
 
 function Paper({ list, selectedMaterial, toggleOnLoan }) {
-  const [googleResult, setGoogleResult] = useState([]);
   const [showPages, setShowPages] = useState(false);
+  const [googleResult, setGoogleResult] = useState([]);
 
   const params = useParams();
   const paper = list.find((item) => (item.id == params.paperId)); // Be careful with equivalence, params is a string value!
@@ -43,12 +42,10 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
       <div className="grid-book-image">
         <h2>{material}</h2>
         {showPages
-          ? <Pages callNum={callNum} setShowPages={setShowPages} selectedMaterial={selectedMaterial} />
+          ? <Pages callNum={callNum} setShowPages={setShowPages} />
           : <>
-            <PaperControls>
-              <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
-              <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
-            </PaperControls>
+            <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
+            <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
             {coverImageFilename !== ""
               ? <Page filename={`covers/${coverImageFilename}`} />
               : null}
@@ -57,39 +54,41 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
       </div>
       <div className="grid-book-detail">
         <table>
-          <tr>
-            <td>Id:</td><td>{paper.id}</td>
-          </tr>
-          <tr>
-            <td>Call No.:</td><td>{callNum}</td>
-          </tr>
-          <tr>
-            <td>ISBN:</td><td>{isbn}</td>
-          </tr>
-          <tr>
-            <td>Title:</td><td>{title}</td>
-          </tr>
-          <tr>
-            <td>Category:</td><td>{category}</td>
-          </tr>
-          <tr>
-            <td>Year:</td><td>{year}</td>
-          </tr>
-          <tr>
-            <td>Size:</td><td>{size}</td>
-          </tr>
-          <tr>
-            <td>Venue:</td><td>{venue}</td>
-          </tr>
-          <tr>
-            <td>Author:</td><td>{author}</td>
-          </tr>
-          <tr>
-            <td>Publisher: </td><td>{publisher}</td>
-          </tr>
-          <tr>
-            <td>Pages:</td><td>{imageCount > 0 ? imageCount : null}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Id:</td><td>{paper.id}</td>
+            </tr>
+            <tr>
+              <td>Call No.:</td><td>{callNum}</td>
+            </tr>
+            <tr>
+              <td>ISBN:</td><td>{isbn}</td>
+            </tr>
+            <tr>
+              <td>Title:</td><td>{title}</td>
+            </tr>
+            <tr>
+              <td>Category:</td><td>{category}</td>
+            </tr>
+            <tr>
+              <td>Year:</td><td>{year}</td>
+            </tr>
+            <tr>
+              <td>Size:</td><td>{size}</td>
+            </tr>
+            <tr>
+              <td>Venue:</td><td>{venue}</td>
+            </tr>
+            <tr>
+              <td>Author:</td><td>{author}</td>
+            </tr>
+            <tr>
+              <td>Publisher: </td><td>{publisher}</td>
+            </tr>
+            <tr>
+              <td>Pages:</td><td>{imageCount > 0 ? imageCount : null}</td>
+            </tr>
+          </tbody>
         </table>
         {googleResult.totalItems ? <GoogleBook books={googleResult} /> : null}
       </div>

@@ -47,7 +47,6 @@ function App() {
             categoryOptions={getCategorys(ark)}
             material={material}
             onLoan={handleOnLoan}
-            reset={true}
           />
         </Route>
         <Route exact path="/about">
@@ -57,11 +56,11 @@ function App() {
         </Route>
         <Route exact path="/new">
           {/* <div className="grid-list"> */}
-            <NewPaperForm
-              onNewPaper={handleNewPaper}
-              categoryOptions={getCategorys(ark)}
-              material={material}
-            />
+          <NewPaperForm
+            onNewPaper={handleNewPaper}
+            categoryOptions={getCategorys(ark)}
+            material={material}
+          />
           {/* </div> */}
         </Route>
         <Route exact path="/">

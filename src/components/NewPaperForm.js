@@ -48,7 +48,7 @@ function NewPaperForm({ onNewPaper, categoryOptions, material }) {
 
   return (
     <>
-      <div className="grid-list fields" >
+      <div className="grid-main fields" >
         <h2>New {material.charAt(0).toUpperCase() + material.slice(1)}</h2>
         <form onSubmit={handleSubmit} >
           <p className="field-row">

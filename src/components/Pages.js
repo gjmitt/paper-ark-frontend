@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
-import PageControls from './PageControls';
 import Page from './Page';
 
 function Pages({ callNum, setShowPages }) {
   const [pageFiles, setpageFiles] = useState([]);
   const [currentPage, setCurrentPage] = useState(2); // start on 2nd page to skip cover
+
+  // console.log("Pages render callnum:", callNum);
 
   useEffect(() => {
     const s3 = new S3Client({
@@ -40,13 +41,9 @@ function Pages({ callNum, setShowPages }) {
   return (
     <>
       {/* <h3>Pages</h3> */}
-      <PageControls
-        pageNum={currentPage}
-        pageCount={pageFiles.length}
-        onPrevClick={handlePrev}
-        onNextClick={handleNext}
-        onCloseClick={handleClose}
-      />
+      <button disabled={currentPage === 0} onClick={handlePrev}>Prev</button>
+      <button disabled={currentPage === pageFiles.length} onClick={handleNext}>Next</button>
+      <button onClick={handleClose}>Close</button>
       {pageFiles.length
         ? <Page filename={pageFiles[currentPage - 1].Key} />
         : null

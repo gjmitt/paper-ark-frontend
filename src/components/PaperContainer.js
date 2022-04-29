@@ -27,7 +27,7 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
 
   return (
     <>
-      <div className="grid-list">
+      <div className="grid-sub-header">
         <h2>{material.charAt(0).toUpperCase() + material.slice(1)}s List</h2>
         <PaperSearchInput text={searchText} setText={setSearchText} />
         <CategorySelect
@@ -37,10 +37,13 @@ function PaperContainer({ ark, categoryOptions, material, onLoan }) {
         />
         <HasPagesCheckbox checkboxValue={hasPagesFilter} onCheckboxChange={setHasPagesFilter} />
         <ISBNCheckbox checkboxValue={isbnFilter} onCheckboxChange={setIsbnFilter} />
+      </div>
+      <div className="grid-main paper-list">
         <PaperList list={filteredArk} material={material} />
       </div>
       <Route path={`${routeMatch.url}/${material}/:paperId`}>
-        <Paper list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
+        <Paper
+          key={new Date()} list={ark} selectedMaterial={material} toggleOnLoan={onLoan} />
       </Route>
     </>
   )

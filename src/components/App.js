@@ -42,7 +42,11 @@ function App() {
       </div>
       <Switch>
         <Route path="/paper">
+          {/* 
+          Use key prop to force state of filter controls above PaperList to reset. Otherwise a leftover filter from (for example) Books may cause the Maps list to be blank.
+          */}
           <PaperContainer
+            key={material}
             ark={ark}
             categoryOptions={getCategorys(ark)}
             material={material}
@@ -50,21 +54,19 @@ function App() {
           />
         </Route>
         <Route exact path="/about">
-          <div className="grid-list">
+          <div className="grid-main">
             <About />
           </div>
         </Route>
         <Route exact path="/new">
-          {/* <div className="grid-list"> */}
           <NewPaperForm
             onNewPaper={handleNewPaper}
             categoryOptions={getCategorys(ark)}
             material={material}
           />
-          {/* </div> */}
         </Route>
         <Route exact path="/">
-          <div className="grid-list">
+          <div className="grid-main">
             <Home />
           </div>
         </Route>

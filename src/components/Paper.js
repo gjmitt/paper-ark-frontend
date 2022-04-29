@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import BorrowButton from './BorrowButton';
-import PagesButton from './PagesButton';
 import GoogleBook from './GoogleBook';
 import Pages from './Pages';
 import Page from './Page';
 
 function Paper({ list, selectedMaterial, toggleOnLoan }) {
-  const [showPages, setShowPages] = useState(false);
   const [googleResult, setGoogleResult] = useState([]);
+  const [showPages, setShowPages] = useState(false);
 
   const params = useParams();
   const paper = list.find((item) => (item.id == params.paperId)); // Be careful with equivalence, params is a string value!
   const { callNum, category, material, author, title, publisher, isbn, year, size, venue, hasPages, onLoan, imageCount, coverImageFilename } = paper;
 
+  // console.log("Paper render callnum: ", callNum);
+  // console.log("params.paperId: ", params.paperId);
+
   useEffect(() => {
     if (isbn !== "") {
+      // console.log(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&langRestrict=%22en%22&printType=books&projection=lite`)
       fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&langRestrict=%22en%22&printType=books&projection=lite`)
         .then((resp) => resp.json())
         .then((result) => setGoogleResult(result))
     } else {
       setGoogleResult([]);
     }
+
   }, [paper, isbn])
 
   function handleLoan() {
@@ -44,8 +47,8 @@ function Paper({ list, selectedMaterial, toggleOnLoan }) {
         {showPages
           ? <Pages callNum={callNum} setShowPages={setShowPages} />
           : <>
-            <BorrowButton onLoan={onLoan} handleLoan={handleLoan} />
-            <PagesButton hasPages={hasPages} onButtonClick={() => setShowPages(!showPages)} />
+            <button onClick={handleLoan}>{onLoan ? "Return" : "Borrow"}</button>
+            <button disabled={!hasPages} onClick={() => setShowPages(!showPages)}>Pages</button>
             {coverImageFilename !== ""
               ? <Page filename={`covers/${coverImageFilename}`} />
               : null}

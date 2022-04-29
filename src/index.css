@@ -46,15 +46,25 @@ label {
 .main-container {
   display: grid;
   grid-template-columns: 300px 400px;
-  grid-template-rows: 90px 300px auto;
+  grid-template-rows: 90px auto 200px auto;
   grid-template-areas:
     "header       header"
-    "list         list"
+    "sub-header   sub-header"
+    "main         main"
     "book-image   book-detail"
 }
 
 .grid-header {
   grid-area: header;
+}
+
+.grid-main {
+  grid-area: main;
+  overflow: auto;
+}
+
+.grid-sub-header {
+  grid-area: sub-header;
 }
 
 .grid-book-image {
@@ -67,10 +77,6 @@ label {
   margin-top: 80px;
 }
 
-.grid-list {
-  grid-area: list;
-  overflow: auto;
-}
 
 .break {
   white-space: pre-line;
@@ -105,4 +111,9 @@ label {
 .pos-btn {
   position: absolute;
   left: 510px;
+}
+
+.paper-list {
+  width: 600px;
+  border: 5px black;
 }

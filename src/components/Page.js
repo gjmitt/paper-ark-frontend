@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Page({ filename }) {
+  // console.log("Page render filename", filename);
   return (
     <>
       {filename !== ""
